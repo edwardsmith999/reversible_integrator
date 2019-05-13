@@ -55,7 +55,7 @@ subroutine integrate_reversably(QMM, QM, Q0, QP, iters, dt)
     double precision, intent(inout) :: QMM, QM, Q0, QP
 
     integer :: it
-    integer, parameter :: intkind = selected_int_kind(8)
+    integer, parameter :: intkind = selected_int_kind(16)
     integer(kind=intkind) :: IQMM,IQM,IQ0,IQP,IQPP,IP0 !Contiguous integer coordinates
     integer(kind=intkind) :: IAP,IA0,IAM           !Ingredients of the accelerations
     double precision ::dt, dt2
@@ -196,49 +196,5 @@ program revsersable_integrator
 !    enddo
 !    !Check divergence from initial condition
 !    print'(a, 2f10.5, f24.17)', "Error stepwise = ", Q0, init0, Q0-init0
-!  
-    !Convert Coordinates To 15-Digit Integers
-!    IQMM = QMM*(10.D0**15)
-!    IQM  = QM *(10.D0**15)
-!    IQ0  = Q0 *(10.D0**15)
-!    IQP  = QP *(10.D0**15)
-
-!    DO IT = 1,ITMAX
-!        TIME = IT*DT
-
-!        ! Acceletaton is just momentum as this example is
-!        ! a harmonic oscillator \ddot{q} = −q
-!        IAP = IQP
-!        IA0 = IQ0
-!        IAM = IQM
-
-!        !Compute Ingredients Of Three Accelerations
-!        IAP = 0.25d0*dt2*(5.D0*IAP)
-!        IA0 = 0.25d0*dt2*(2.D0*IA0)
-!        IAM = 0.25d0*dt2*(5.D0*IAM)
-
-!        ! This is the "step" (DOI:10.12921/cmst.2017.0000031)
-!        IQPP = IQP + IQM - IQMM - (IAP + IA0 + IAM)
-
-!        !Get momenta (4th order) (http://arxiv.org/abs/1801.09899v3)
-!        IP0 =   (4.d0/3.d0)*(IQP -IQM )/(2.d0*dt) & 
-!              - (1.d0/3.d0)*(IQPP-IQMM)/(4.d0*dt)
-
-!        !Coordinate Updates For Five Successive Times
-!        IQMM = IQM
-!        IQM = IQ0
-!        IQ0 = IQP
-!        IQP = IQPP
-
-!        !Convert back to double precision
-!        Q0 = IQ0/10.D0**15
-!        P0 = IP0/10.D0**15
-
-!        print*, it, time, Q0, P0
-!    END DO
-
-!    !Swap order of initial conditions to reverse trajectory
-!    tempMM = QMM; tempM = QM; temp0 = Q0; tempP = QP
-!    QMM = tempP; QM = temp0; Q0 = tempM; QP = tempMM
 
 end program revsersable_integrator
