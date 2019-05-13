@@ -157,7 +157,7 @@ program revsersable_integrator
     print'(a, 2f10.5, f24.17, a, f10.5 )', "Error Integer = ", Q0, init0, Q0-init0, " Cpu time = ", t2-t1
 
     !==============================
-    !    Test 1 - Double precision
+    !    Test 2 - Double precision
     !==============================
 
     !Store initial conditions
@@ -175,26 +175,5 @@ program revsersable_integrator
 
     !Check divergence from initial condition
     print'(a, 2f10.5, f24.17, a, f10.5 )', "Error double = ", Q0, init0, Q0-init0, " Cpu time = ", t2-t1
-
-    !==============================
-    !   Test 2 - stepwise
-    !==============================
-
-!    integer*16 :: IQMM,IQM,IQ0,IQP,IQPP,IP0 !Contiguous integer coordinates
-!    integer*16 :: IAP,IA0,IAM           !Ingredients of the accelerations
-
-!    !Store initial conditions
-!    initMM = QMM; initM = QM; init0 = Q0; initP = QP
-
-!    !Integrate
-!    DO IT = 1,ITMAX
-!        call integrate_reversably(QMM, QM, Q0, QP, 1, dt)
-!    enddo
-!    !Integerate backwards
-!    DO IT = 1,ITMAX
-!        call integrate_reversably(QP, Q0, QM, QMM, 1, dt)
-!    enddo
-!    !Check divergence from initial condition
-!    print'(a, 2f10.5, f24.17)', "Error stepwise = ", Q0, init0, Q0-init0
 
 end program revsersable_integrator
